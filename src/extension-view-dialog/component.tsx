@@ -10,7 +10,7 @@ import { DivOption } from './div-option';
 import * as closeButton from '../img/close_icon.png';
 import { MobileOrientation, DefaultMobileOrientation, MobileSizes } from '../constants/mobile';
 import { ManifestViews, getSupportedAnchors, getSupportedPlatforms } from '../core/models/manifest';
-import { ExtensionPlatform, ExtensionAnchor} from '../constants/extension-coordinator';
+import { ExtensionPlatform, ExtensionAnchor } from '../constants/extension-coordinator';
 
 interface ExtensionViewDialogProps {
   extensionViews: ManifestViews,
@@ -91,31 +91,31 @@ export class ExtensionViewDialog extends React.Component<ExtensionViewDialogProp
 
   private renderFrameSizeComponents() {
     return Object.keys(OverlaySizes).map(key => {
-      return <RadioOption key={key} name="frameSize" value={key} onChange={this.onChange} checked={key === this.state.frameSize}/>
+      return <RadioOption key={key} name="frameSize" value={key} onChange={this.onChange} checked={key === this.state.frameSize} />
     });
   }
 
   private renderMobileFrameSizeComponents() {
     return Object.keys(MobileSizes).map(key => {
-      return <RadioOption key={key} name="frameSize" value={key} onChange={this.onChange} checked={key === this.state.frameSize}/>
+      return <RadioOption key={key} name="frameSize" value={key} onChange={this.onChange} checked={key === this.state.frameSize} />
     });
   }
 
   private renderViewerTypeComponents() {
     return Object.keys(ViewerTypes).map(key => {
-      return <RadioOption key={key} name="viewerType" value={ViewerTypes[key]} onChange={this.onChange} checked={ViewerTypes[key] === this.state.viewerType}/>
+      return <RadioOption key={key} name="viewerType" value={ViewerTypes[key]} onChange={this.onChange} checked={ViewerTypes[key] === this.state.viewerType} />
     });
   }
 
   private renderIdentityOptionComponents() {
     return Object.keys(IdentityOptions).map(option => {
-      return <RadioOption key={option} name="identityOption" value={option} onChange={this.onChange} checked={option === this.state.identityOption}/>
+      return <RadioOption key={option} name="identityOption" value={option} onChange={this.onChange} checked={option === this.state.identityOption} />
     });
   }
 
   private renderOrientationComponents() {
     return Object.keys(MobileOrientation).map(option => {
-      return <RadioOption key={option} name="orientation" value={MobileOrientation[option]} onChange={this.onChange} checked={option === this.state.orientation}/>
+      return <RadioOption key={option} name="orientation" value={MobileOrientation[option]} onChange={this.onChange} checked={option === this.state.orientation} />
     });
   }
 
@@ -125,7 +125,7 @@ export class ExtensionViewDialog extends React.Component<ExtensionViewDialogProp
   }
 
   save = () => {
-    this.props.saveHandler();
+    this.props.saveHandler(this.state);
   }
 
   public render() {
@@ -138,7 +138,7 @@ export class ExtensionViewDialog extends React.Component<ExtensionViewDialogProp
         <div className="new-extension-view__dialog">
           <div className="dialog__top-bar-container">
             <div className="top-bar-container__title"> Add a new view </div>
-            <div className="top-bar-container__escape" onClick={this.close}><img alt="Close" src={closeButton}/></div>
+            <div className="top-bar-container__escape" onClick={this.close}><img alt="Close" src={closeButton} /></div>
           </div>
 
           <hr className="dialog__divider" />
@@ -157,67 +157,66 @@ export class ExtensionViewDialog extends React.Component<ExtensionViewDialogProp
               <div className="size-title__size-subcontainer">
 
                 {(this.state.extensionViewType === ExtensionAnchor.Overlay) &&
-                <div className="size-title__size-subcontainer">
-                  <div className="size-subcontainer__presets">
-                    <div className="type-and-size-container__type-title">
-                      Overlay Size
-                    </div>
-                    <div className='size-subcontainer__presets-container'>
-                      <div className='size-subcontainer__size-selection'>
-                        {this.renderFrameSizeComponents()}
+                  <div className="size-title__size-subcontainer">
+                    <div className="size-subcontainer__presets">
+                      <div className="type-and-size-container__type-title">
+                        Overlay Size
                       </div>
-                      <div className='overlay-custom-container'>
-                          <RadioOption className='overlay-custom' name="frameSize" value="Custom" onChange={this.onChange} checked={"Custom" === DefaultIdentityOption} />
+                      <div className='size-subcontainer__presets-container'>
+                        <div className='size-subcontainer__size-selection'>
+                          {this.renderFrameSizeComponents()}
+                        </div>
                         <div className='overlay-custom-container'>
-                          <div className="custom-subcontainer__input">
-                            <label className="inputs__option-label inputs__width-offset"> Width </label>
-                            <input type="text" name="width" onChange={this.onChange}/>
-                          </div>
-                          <div className="custom-subcontainer__input">
-                            <label className="inputs__option-label"> Height </label>
-                            <input type="text" name="height" onChange={this.onChange}/>
+                          <RadioOption className='overlay-custom' name="frameSize" value="Custom" onChange={this.onChange} checked={"Custom" === DefaultIdentityOption} />
+                          <div className='overlay-custom-container'>
+                            <div className="custom-subcontainer__input">
+                              <label className="inputs__option-label inputs__width-offset"> Width </label>
+                              <input type="text" name="width" onChange={this.onChange} />
+                            </div>
+                            <div className="custom-subcontainer__input">
+                              <label className="inputs__option-label"> Height </label>
+                              <input type="text" name="height" onChange={this.onChange} />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>}
+                  </div>}
 
                 {(this.state.extensionViewType === ExtensionPlatform.Mobile) &&
-                <div className="size-title__size-subcontainer">
-                  <div className="size-subcontainer__presets">
-                    <div className="type-and-size-container__type-title">
-                      Screen Size
-                    </div>
-                    <div className='size-subcontainer__presets-container'>
-                      <div className='size-subcontainer__size-selection'>
-                        {this.renderMobileFrameSizeComponents()}
+                  <div className="size-title__size-subcontainer">
+                    <div className="size-subcontainer__presets">
+                      <div className="type-and-size-container__type-title">
+                        Screen Size
                       </div>
-                      <div className='overlay-custom-container'>
-                          <RadioOption className='overlay-custom' name="frameSize" value="Custom" onChange={this.onChange} checked={"Custom" === DefaultIdentityOption} />
+                      <div className='size-subcontainer__presets-container'>
+                        <div className='size-subcontainer__size-selection'>
+                          {this.renderMobileFrameSizeComponents()}
+                        </div>
                         <div className='overlay-custom-container'>
-                          <div className="custom-subcontainer__input">
-                            <label className="inputs__option-label inputs__width-offset"> Width </label>
-                            <input type="text" name="width" onChange={this.onChange}/>
-                          </div>
-                          <div className="custom-subcontainer__input">
-                            <label className="inputs__option-label"> Height </label>
-                            <input type="text" name="height" onChange={this.onChange}/>
+                          <RadioOption className='overlay-custom' name="frameSize" value="Custom" onChange={this.onChange} checked={"Custom" === DefaultIdentityOption} />
+                          <div className='overlay-custom-container'>
+                            <div className="custom-subcontainer__input">
+                              <label className="inputs__option-label inputs__width-offset"> Width </label>
+                              <input type="text" name="width" onChange={this.onChange} />
+                            </div>
+                            <div className="custom-subcontainer__input">
+                              <label className="inputs__option-label"> Height </label>
+                              <input type="text" name="height" onChange={this.onChange} />
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="size-subcontainer__presets">
-                    <div className="type-and-size-container__type-title">
-                      Orientation
+                    <div className="size-subcontainer__presets">
+                      <div className="type-and-size-container__type-title">
+                        Orientation
+                      </div>
+                      <div className='overlay-custom-container'>
+                        {this.renderOrientationComponents()}
+                      </div>
                     </div>
-                    <div className='overlay-custom-container'>
-                      {this.renderOrientationComponents()}
-                    </div>
-                  </div>
-                </div>
-                }
+                  </div>}
 
                 {(this.state.extensionViewType === ExtensionAnchor.Component) &&
                   <div className="size-subcontainer__presets">
@@ -229,20 +228,20 @@ export class ExtensionViewDialog extends React.Component<ExtensionViewDialogProp
                         {this.renderFrameSizeComponents()}
                       </div>
                       <div className='overlay-custom-container'>
-                          <RadioOption className='overlay-custom' name="frameSize" value="Custom" onChange={this.onChange} checked={"Custom" === DefaultIdentityOption} />
+                        <RadioOption className='overlay-custom' name="frameSize" value="Custom" onChange={this.onChange} checked={"Custom" === DefaultIdentityOption} />
                         <div className='overlay-custom-container'>
                           <div className="custom-subcontainer__input">
                             <label className="inputs__option-label inputs__width-offset"> Width </label>
-                            <input type="text" name="width" onChange={this.onChange}/>
+                            <input type="text" name="width" onChange={this.onChange} />
                           </div>
                           <div className="custom-subcontainer__input">
                             <label className="inputs__option-label"> Height </label>
-                            <input type="text" name="height" onChange={this.onChange}/>
+                            <input type="text" name="height" onChange={this.onChange} />
                           </div>
                         </div>
                       </div>
-                  </div>
-                </div>}
+                    </div>
+                  </div>}
 
                 {(this.state.extensionViewType === ExtensionAnchor.Component) &&
                   <div className="size-subcontainer__presets">
@@ -278,7 +277,7 @@ export class ExtensionViewDialog extends React.Component<ExtensionViewDialogProp
                 </div>
                 <div className='opaque_id-input'>
                   <label className="opaque-id-label">Custom Opaque ID</label>
-                  <input type="text" name="opaqueId" onChange={this.onChange}/>
+                  <input type="text" name="opaqueId" onChange={this.onChange} />
                 </div>
               </div>
             </div>
