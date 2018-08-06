@@ -41,7 +41,6 @@ interface State {
   version: string;
   channelId: string;
   userName: string;
-  mode: string;
   extensionViews: RigExtensionView[],
   manifest: ExtensionManifest;
   showSignInDialog: boolean;
@@ -66,7 +65,6 @@ export class RigComponent extends React.Component<Props, State> {
     version: process.env.EXT_VERSION,
     channelId: process.env.EXT_CHANNEL_ID,
     userName: process.env.EXT_USER_NAME,
-    mode: ExtensionMode.Viewer,
     extensionViews: [],
     manifest: {} as ExtensionManifest,
     showSignInDialog: true,
@@ -119,7 +117,6 @@ export class RigComponent extends React.Component<Props, State> {
 
   public viewerHandler = () => {
     this.setState({
-      mode: ExtensionMode.Viewer,
       selectedView: ExtensionViews,
       extension: {} as RigExtension,
     });
@@ -185,7 +182,11 @@ export class RigComponent extends React.Component<Props, State> {
 
   public createExtensionView = (extensionViewDialogState: any) => {
     const extensionViews = this.getExtensionViews();
-    const linked = extensionViewDialogState.identityOption === IdentityOptions.Linked;
+    const mode = extensionViewDialogState.extensionViewType === ExtensionMode.Config ? ExtensionMode.Config :
+      extensionViewDialogState.extensionViewType === ExtensionMode.Dashboard ? ExtensionMode.Dashboard : ExtensionMode.Viewer;
+    const linked = extensionViewDialogState.identityOption === IdentityOptions.Linked ||
+      extensionViewDialogState.extensionViewType === ExtensionMode.Config ||
+      extensionViewDialogState.extensionViewType === ExtensionMode.Dashboard;
     const nextExtensionViewId = extensionViews.reduce((a: number, b: RigExtensionView) => Math.max(a, parseInt(b.id, 10)), 0) + 1;
     extensionViews.push({
       id: nextExtensionViewId.toString(),
@@ -200,7 +201,8 @@ export class RigComponent extends React.Component<Props, State> {
         this.state.secret,
         extensionViewDialogState.opaqueId,
       ),
-      linked: linked,
+      linked,
+      mode,
       role: extensionViewDialogState.viewerType,
       x: extensionViewDialogState.x,
       y: extensionViewDialogState.y,
@@ -232,7 +234,6 @@ export class RigComponent extends React.Component<Props, State> {
     let view = (
       <div>
         <ExtensionViewContainer
-          mode={this.state.mode}
           extensionViews={this.state.extensionViews}
           deleteExtensionViewHandler={this.deleteExtensionView}
           openExtensionViewHandler={this.openExtensionViewHandler}
