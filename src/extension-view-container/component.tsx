@@ -4,6 +4,7 @@ import { ExtensionViewButton } from '../extension-view-button';
 import { ExtensionMode } from '../constants/extension-coordinator';
 import './component.sass';
 import { RigExtensionView, RigExtension } from '../core/models/rig';
+import { ConfigNames } from '../constants/nav-items'
 
 interface ExtensionViewContainerProps {
   extensionViews: RigExtensionView[];
@@ -24,7 +25,7 @@ export class ExtensionViewContainer extends React.Component<Props> {
     let extensionViews: JSX.Element[] = [];
     if (this.props.extensionViews && this.props.extensionViews.length > 0) {
       extensionViews = this.props.extensionViews.map(view => {
-        const role = view.mode === ExtensionMode.Viewer ? view.role : view.mode.replace(/^([a-z])/, (c) => c.toUpperCase());
+        const role = view.mode === ExtensionMode.Viewer ? view.role : ConfigNames[view.mode];
         return <ExtensionView
           key={view.id}
           id={view.id}
