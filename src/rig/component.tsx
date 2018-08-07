@@ -10,7 +10,7 @@ import { ProductManagementViewContainer } from '../product-management-container'
 import { createExtensionObject } from '../util/extension';
 import { createSignedToken } from '../util/token';
 import { fetchManifest, fetchExtensionManifest, fetchUserInfo } from '../util/api';
-import { ExtensionViews, BroadcasterConfig, LiveConfig, Configurations, ProductManagement } from '../constants/nav-items'
+import { ExtensionViews, ProductManagement } from '../constants/nav-items'
 import { ViewerTypes } from '../constants/viewer-types';
 import { OverlaySizes } from '../constants/overlay-sizes';
 import { IdentityOptions } from '../constants/identity-options';
